@@ -12,7 +12,17 @@ import java.time.Instant;
  * them without any custom mapping.
  */
 @Entity
-@Table(name = "transactions")
+@Table(
+    name = "transactions",
+    indexes = {
+        // Covers velocity-rule queries: WHERE payer_vpa = ? AND saved_at > ?
+        // The composite order matters: equality column first, then the range column.
+        @Index(name = "idx_payer_vpa_saved_at", columnList = "payer_vpa, saved_at"),
+
+        // Covers pure time-range history scans that aren't filtered by payer.
+        @Index(name = "idx_saved_at", columnList = "saved_at")
+    }
+)
 @Data
 @NoArgsConstructor
 public class Transaction {
