@@ -92,8 +92,10 @@ public class TransactionService {
         List<FraudRule> rules = fromJson(t.getRulesJson());
 
         HistoryRecord.ResultDto resultDto = new HistoryRecord.ResultDto(
-            t.getRiskScore(), t.getRiskTier(), rules
-        );
+            t.getRiskScore() != null ? t.getRiskScore() : 0,
+            t.getRiskTier(),
+            rules
+        ); 
 
         String display  = TS_DISPLAY.format(t.getSavedAt());
         String savedAt  = t.getSavedAt().toString();
