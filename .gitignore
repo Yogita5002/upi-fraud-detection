@@ -5,3 +5,5 @@ target/
 *.iml
 .mvn/
 python/venv/
+**/__pycache__/
+*.pyc
