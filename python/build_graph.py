@@ -16,7 +16,7 @@ import networkx as nx
 # psycopg2 opens a single synchronous connection to PostgreSQL.
 DB_CONFIG = {
     "host": "localhost",
-    "port": 5432,
+    "port": 5433,
     "dbname": "frauddb",
     "user": "fraud_user",
     "password": "fraud_pass",

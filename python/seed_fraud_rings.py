@@ -25,7 +25,7 @@ import psycopg2.extras
 
 DB_CONFIG = {
     "host": "localhost",
-    "port": 5432,
+    "port": 5433,
     "dbname": "frauddb",
     "user": "fraud_user",
     "password": "fraud_pass",
