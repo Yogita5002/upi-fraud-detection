@@ -8,18 +8,20 @@ Run:
     python build_graph.py
 """
 
+import os
+
 import psycopg2
 import networkx as nx
 
 # ── 1. Database connection ────────────────────────────────────────────────────
-# These credentials match the docker-compose.yml service definition.
+# Values come from environment variables; defaults match local docker-compose.
 # psycopg2 opens a single synchronous connection to PostgreSQL.
 DB_CONFIG = {
-    "host": "localhost",
-    "port": 5433,
-    "dbname": "frauddb",
-    "user": "fraud_user",
-    "password": "fraud_pass",
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": int(os.getenv("DB_PORT", "5433")),
+    "dbname": os.getenv("DB_NAME", "frauddb"),
+    "user": os.getenv("DB_USER", "fraud_user"),
+    "password": os.getenv("DB_PASSWORD", "fraud_pass"),
 }
 
 

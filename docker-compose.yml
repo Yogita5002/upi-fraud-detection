@@ -3,15 +3,15 @@ services:
     image: postgres:16
     container_name: fraud_postgres
     environment:
-      POSTGRES_DB: frauddb
-      POSTGRES_USER: fraud_user
-      POSTGRES_PASSWORD: fraud_pass
+      POSTGRES_DB: ${DB_NAME:-frauddb}
+      POSTGRES_USER: ${DB_USER:-fraud_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-fraud_pass}
     ports:
-      - "5433:5432"
+      - "${DB_PORT:-5433}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U fraud_user -d frauddb"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-fraud_user} -d ${DB_NAME:-frauddb}"]
       interval: 10s
       timeout: 5s
       retries: 5

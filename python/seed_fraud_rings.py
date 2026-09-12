@@ -17,6 +17,7 @@ Run:
 """
 
 import argparse
+import os
 import sys
 from datetime import datetime, timedelta, timezone
 
@@ -24,11 +25,11 @@ import psycopg2
 import psycopg2.extras
 
 DB_CONFIG = {
-    "host": "localhost",
-    "port": 5433,
-    "dbname": "frauddb",
-    "user": "fraud_user",
-    "password": "fraud_pass",
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": int(os.getenv("DB_PORT", "5433")),
+    "dbname": os.getenv("DB_NAME", "frauddb"),
+    "user": os.getenv("DB_USER", "fraud_user"),
+    "password": os.getenv("DB_PASSWORD", "fraud_pass"),
 }
 
 # ── helpers ───────────────────────────────────────────────────────────────────

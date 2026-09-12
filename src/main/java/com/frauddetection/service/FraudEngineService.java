@@ -59,7 +59,7 @@ public class FraudEngineService {
 
         // Track velocity before reading it
         trackVel(payerVpa, timestamp);
-        long vel = velCount(payerVpa, 5 * 60 * 1000L);
+        long vel = velCount(payerVpa, 5 * 60 * 1000L, timestamp);
 
         // Is this device new?
         boolean isNewDev = !devStore.contains(deviceId);
@@ -198,10 +198,10 @@ public class FraudEngineService {
         velStore.computeIfAbsent(vpa, k -> new ArrayList<>()).add(ts);
     }
 
-    private long velCount(String vpa, long windowMs) {
-        long now = Instant.now().toEpochMilli();
+    private long velCount(String vpa, long windowMs, String timestamp) {
+        long reference = parseMillis(timestamp);
         List<Long> times = velStore.getOrDefault(vpa, List.of());
-        return times.stream().filter(t -> now - t < windowMs).count();
+        return times.stream().filter(t -> reference - t < windowMs).count();
     }
 
     // ── Utility ───────────────────────────────────────────────────────────────
